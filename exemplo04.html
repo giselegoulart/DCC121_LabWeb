@@ -1,27 +1,58 @@
 <!DOCTYPE html>
-<htmllang='pt' dir='ltr'>
+<html lang='pt' dir='ltr'>
   <head>
     <meta charset="utf-8">
-    <title>Exemplo  03</title>
+    <title>Exemplo  04</title>
   </head>
   <body>
     <h1>Exemplo 04</h1>
-    <table border='1'>
+    <table border='1' width='110'>
     <thead>Alfabeto</thead>
     <tbody>
       <tr>
-      <td>A</td> <td>B</td> <td>C</td> <td>D</td> <td>E</td>
+      <td rowspan='2'>A F</td> <td rowspan='2' colspan='2'>B C G H</td>  <td rowspan='2' colspan='2'>D E I J</td>
       </tr>
       <tr>
-      <td>F</td> <td>G</td> <td>H</td> <td>I</td> <td>J</td>
+
       </tr>
       <tr>
-      <td>K</td> <td>L</td> <td>M</td> <td>N</td> <td>O</td>
+      <td rowspan='3'>K P U</td> <td colspan='2'>L M</td>  <td colspan='2'>N O</td>
     </tr>
     <tr>
-    <td>P</td> <td>Q</td> <td>R</td> <td>S</td> <td>T</td>
+    <td>Q</td> <td rowspan='2' colspan='3'>R S T W X Y</td>
     </tr>
     <tr>
-    <td>U</td> <td>V</td> <td>W</td> <td>X</td> <td>Y</td>
+    <td>V</td>
     </tr>
+   </table>
+
+
+   <h1>Exemplo 4.1</h1>
+   <table border='1' width='200'>
+     <thead>Mercadorias </thead>
+       <tr>
+         <th>Tipo</th> <th>Item</th> <th>Cor</th>
+       </tr>
+       </thead>
+       <tbody>
+       <tr>
+         <td>Fruta</td> <td>Maçã</td> <td>Vermelho</td>
+       </tr>
+       <tr>
+         <td rowspan='2'>Verdura</td> <td>Alface</td> <td rowspan='2'>Verde</td>
+       </tr>
+       <tr>
+       <td>Couve</td>
+       </tr>
+       <tr>
+         <td>Fruta</td> <td><a href="frutas/uva.html">Uva</a></td> <td>Roxo</td>
+       </tr>
+       <tr>
+         <td>Fruta</td> <td>Pêssego</td> <td>Pêssego</td>
+       </tr>
+       <tr>
+         <td>Fruta</td> <td>Banana</td> <td>Amarelo</td>
+       </tr>
+     </tbody>
+   </table>
   </body>
