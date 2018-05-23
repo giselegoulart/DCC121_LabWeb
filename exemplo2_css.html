@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title> Exemplo 2 - CSS </title>
+    <style>
+    body{
+      margin: 0;
+    }
+    div{
+      margin: 3px;
+    }
+    #a, #b, #c, #d{
+      width: 30px;
+      height: 30px;
+      border-width: 1px;
+      border-style:solid;
+
+      padding: 5px;
+    }
+    #a{
+      border-color: darkred;
+      background-color: yellow;
+      padding: 5px;
+    }
+    #b{
+      border-color: darkblue;
+      background-color: pink;
+      padding: 5px;
+      border-top-width: 3px;
+      border-left-width: 5px;
+      border-bottom-width: 7px;
+      border-right-width: 1px;
+      border-style: dotted;
+    }
+    #c{
+      <!--border-color: darkgreen;-->
+      background-color: lightgreen;
+      padding: 5px;
+      border-color: red green blue yellow;
+    }
+    #d{
+      border-color: orange;
+      background-color: purple;
+      padding: 5px;
+      border-style: groove;
+    }
+    </style>
+  </head>
+  <body>
+    <div id="a">A</div>
+    <div id="b">B</div>
+    <div id="c">C</div>
+    <div id="d">D</div>
+  </body>
+</html>
