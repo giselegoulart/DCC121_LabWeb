@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title> </title>
+    <style>
+      .comprado{
+        text-decoration: line-through;
+      }
+    </style>
+  </head>
+  <body>
+    <h1> Exemplo 1</h1>
+    <p> Lista de compras:</p>
+    <input type="text" placeholder="nome do item" />
+    <button>Adicionar</button>
+    <ul>
+    </ul>
+    <script>
+      //Identificar as entradas
+      var entrada = document.querySelector("input")
+      var botao = document.querySelector("button")
+      //Referenciar as saidas
+      var lista = document.querySelector("ul")
+      //Registrar eventos para calculos
+      botao.addEventListener("click", adicionar)
+      //Escrever resultados na saida
+      function adicionar(){
+        var textoItem = entrada.value
+        console.log(textoItem)
+        entrada.value = ""
+        entrada.focus()
+
+        var novoLi = document.createElement("li")
+        novoLi.textContent = textoItem
+        console.log(novoLi)
+        lista.appendChild(novoLi)
+        novoLi.addEventListener("click", comprar)
+      }
+      function comprar(){
+        console.log(this)
+        if(this.classList.contains("comprado")){
+          this.classList.remove("comprado")
+        }else{
+          this.classList.add("comprado")
+        }
+      }
+    </script>
+  </body>
+</html>

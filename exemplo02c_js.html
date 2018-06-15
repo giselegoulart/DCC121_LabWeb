@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title> Exemplo 2 JS</title>
+  </head>
+  <body>
+    <script>
+      var a
+      console.log(typeof a);
+      a = 5;
+      var cubo = function (x){
+        return x*x*x
+      }
+      function imprime(funcao, valor){
+        console.log(funcao(valor))
+      }
+      console.log(cubo)
+      console.log(imprime(cubo,a))
+      console.log(cubo,a)
+      console.log("a: ", a)
+
+    </script>
+  </body>
+</html>

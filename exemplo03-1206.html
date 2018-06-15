@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title> </title>
+    <style>
+      .comprado{
+        text-decoration: line-through;
+      }
+    </style>
+  </head>
+  <body>
+    <h1> Exemplo 3</h1>
+    <p> Lista de alunos:</p>
+    <input type="text" placeholder="nome do aluno" />
+    <input type="text" placeholder="nota" />
+    <button>Adicionar</button>
+    <table border = '1'>
+      <thead>
+        <tr>
+        <th>Nome</th><th>Nota</th>
+      </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Teste </td><td>Notinha</td>
+        </tr>
+        <tfoot>
+          <tr>
+            <th>Média:</th> <th>60</th>
+          </tr>
+        </tfoot>
+      </tbody>
+    </table>
+    <script>
+      //Identificar as entradas
+      var inputs = document.querySelectorAll("input")
+      var entradaNome = inputs[0]
+      var entradaNota = inputs=[1]
+      var botao = document.querySelector("button")
+      //Referenciar as saidas
+      var tbody = document.querySelector("tbody")
+      var tabela = document.querySelector("table")
+      //Registrar eventos para calculos
+      botao.addEventListener("click", adicionar)
+      //Escrever resultados na saida
+      function adicionar(){
+        var novoTr = document.createElement("tr")
+        var tdnome = document.createElement("td")
+        var tdnota = document.createElement("td")
+        tdnome.textContent = entradaNome.value
+        entradaNome.value = ""
+        entradaNome.focus();
+        tdnota.textContent = entradaNota.value
+        entradaNota.value = ""
+        novoTr.appendChild(tdnome)
+        novoTr.appendChild(tdnota)
+        tbody.appendChild(novoTr)
+
+      }
+      function comprar(){
+        console.log(this)
+        if(this.classList.contains("comprado")){
+          this.classList.remove("comprado")
+        }else{
+          this.classList.add("comprado")
+        }
+      }
+    </script>
+  </body>
+</html>

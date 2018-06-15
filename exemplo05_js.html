@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title> Exemplo 05</title>
+  </head>
+  <body>
+    <script>
+      function Pessoa(nome, sobrenome){
+        this.nome = nome
+        this.sobrenome = sobrenome
+        this.nomeCompleto = function(){
+          return this.nome + " " + this.sobrenome
+        }
+      }
+
+      function Pessoa(nome, sobrenome){
+        this.nome = nome
+        this.sobrenome = sobrenome
+      }
+      Pessoa.nomeCompleto = function(){
+        return this.nome + " " + this.sobrenome
+      }
+      var p1 = new Pessoa("fulano", "da silva")
+      var p2 = new Pessoa("Gisele", "Goulart")
+      console.log(p1)
+      console.log(p2.nomeCompleto)
+    </script>
+
+
+  </body>
+</html>
