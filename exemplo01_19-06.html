@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>
+      Exemplo 01
+    </title>
+  </head>
+  <body>
+    <h1>Exemplo 01</h1>
+    <form name="pessoa"> action="index.html" method="post">
+      <input type="text" name="alcunha" value=""/>
+      <input type="text" name="idade" value=""/>
+      <input type="submit" name="submit" value="Envie"/>
+      <input type="reset"/>
+    </form>
+    <script>
+      var botao = document.pessoa.submit
+      botao.addEventListener("click", mostraPessoa)
+
+      function mostraPessoa(evento){
+        evento.preventDefault()
+        console.log(document.pessoa.alcunha.value)
+        console.log(document.pessoa.idade.value)
+        console.dir(evento)
+      }
+
+      function soma(){
+        console.log
+      }
+    </script>
+  </body>
+</html>
