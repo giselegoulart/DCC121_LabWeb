@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="pt" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Trabalho 1</title>
+    <style>
+      table{
+      width: 300px;
+      text-align: center
+      }
+      form div{
+        text-align: right;
+        width: 300px;
+      }
+      td,th{
+        text-align: center;
+        border: 1px solid black;
+      }
+    #sepEsqcolCentral {
+    	margin-left:200px;
+    	padding-left:2px;
+
+    }
+    #colCentral {
+    	padding:0px 600px;
+      width:190px;
+    }
+    #conteudoEsq {
+    	position:absolute;
+    	width:190px;
+      padding-left:200px;
+      padding-top:25px;
+      text-align:center;
+    }
+    body{
+      background-color: lightblue;
+      padding-top: 0px;
+    }
+    </style>
+  </head>
+  <body>
+    <center>
+    <div id="site">
+    <h1>Trabalho 1 - Churrasco dos Amigos</h1>
+
+    <h3>Adicionar Participante</h3>
+    <form name="form_pessoas">
+      <input type="hidden" name="posicao" value=""/>
+      <div><label>Nome: <input type="text" name="nome" required/></label></div>
+      <div><input type="submit"  value="Adicionar" name="botao_pessoa"/></div>
+    </form>
+    <h2>Participantes</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Delete</th>
+          <th>Pessoas</th>
+        </tr>
+      </thead>
+    <tbody></tbody>
+  </table>
+  <br>
+  <div id="conteudoEsq">
+  <h3>Incluir Produto Custo Fixo</h3>
+    <form name="prod_custo_fixo">
+      <input type="hidden" name="posicao" value=""/>
+      <div><label>Produto: <input type="text" name="produto" required/></label></div>
+      <div><label>Valor: <input type="number" name="valor" required/></label></div>
+      <div><input type="submit"  value="Adicionar" name="botao_fixo"/></div>
+    </form>
+    <h2>Produtos Custo Fixo</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Delete</th>
+          <th>Custo Fixo</th>
+          <th>Valor</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    </div>
+    <div id="colEsq">
+      <div id="sepEsqcolCentral">
+    <br>
+    <div id="colCentral">
+    <h3>Incluir Produto Per Capita</h3>
+    <form name="prod_per_capita">
+      <input type="hidden" name="posicao" value=""/>
+      <div><label>Produto: <input type="text" name="produto" required/></label></div>
+      <div><label>Valor: <input type="number" name="valor" required/></label></div>
+      <div><input type="submit"  value="Adicionar" name="botao_per"/></div>
+    </form>
+  <h2>Produtos Per Capita</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Delete</th>
+        <th>Custo Per Capita</th>
+        <th>Valor</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
+</div>
+</div>
+  <br>
+  <h2>Custo</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Custo Por Pessoa</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
+  </center>
+  <h3>Aluna: Gisele Goulart Tavares da Silva - 201365089C</h3>
+  <h3> E-mail: gisa_goulart9@hotmail.com</h3>
+  <script>
+    var pessoas = []
+    var custo_fixo = []
+    var custo_capita = []
+    var custo_total = 0
+    var custo_por_pessoa = 0
+    apresentaDadosPessoas()
+    apresentaDadosFixo()
+    apresentaDadosCapita()
+    mostraCusto()
+
+    function apresentaDadosPessoas(){
+      var tbody = document.querySelectorAll("tbody")
+      tbody[0].innerHTML = "";
+      for (var i = 0; i< pessoas.length; i++) {
+        var pessoa = pessoas[i]
+        var tr = document.createElement("tr")
+        tbody[0].appendChild(tr)
+        var tdNumero = document.createElement("td")
+        var spanDelete = document.createElement("span")
+        spanDelete.innerHTML = "&#x1f5d1;"
+        tdNumero.appendChild(spanDelete)
+        tr.appendChild(tdNumero)
+        console.log("Registrando evento Lixo clicado: "+i)
+        spanDelete.addEventListener('click',(function (x){
+          return function() {
+              console.log("Lixo clicado: "+x)
+              pessoas.splice(x, 1)
+              calculaNovoCusto()
+              limpaFormularioPessoa()
+              apresentaDadosPessoas()
+              mostraCusto()
+          }
+        })(i))
+        var tdNome = document.createElement("td")
+        tdNome.textContent = pessoa.nome
+        tr.appendChild(tdNome)
+      }
+    }
+    function apresentaDadosFixo(){
+      var tbody = document.querySelectorAll("tbody")
+      tbody[1].innerHTML = "";
+      for (var i = 0; i< custo_fixo.length; i++) {
+        var fixo = custo_fixo[i]
+        var tr = document.createElement("tr")
+        tbody[1].appendChild(tr)
+        var tdNumero = document.createElement("td")
+        var spanDelete = document.createElement("span")
+        spanDelete.innerHTML = "&#x1f5d1;"
+        tdNumero.appendChild(spanDelete)
+        tr.appendChild(tdNumero)
+        console.log("Registrando evento Lixo clicado: "+i)
+        spanDelete.addEventListener('click',(function (x){
+          return function() {
+              console.log("Lixo clicado: "+x)
+              custo_total = custo_total - custo_fixo[x].valor
+              custo_por_pessoa = custo_total/pessoas.length
+              custo_fixo.splice(x, 1)
+              limpaFormularioFixo()
+              apresentaDadosFixo()
+              mostraCusto()
+          }
+        })(i))
+        var tdNome = document.createElement("td")
+        tdNome.textContent = fixo.produto
+        tr.appendChild(tdNome)
+        var tdValor = document.createElement("td")
+        tdValor.textContent = fixo.valor
+        tr.appendChild(tdValor)
+
+      }
+    }
+
+    function apresentaDadosCapita(){
+      var tbody = document.querySelectorAll("tbody")
+      tbody[2].innerHTML = "";
+      for (var i = 0; i< custo_capita.length; i++) {
+        var capita = custo_capita[i]
+        var tr = document.createElement("tr")
+        tbody[2].appendChild(tr)
+        var tdNumero = document.createElement("td")
+        var spanDelete = document.createElement("span")
+        spanDelete.innerHTML = "&#x1f5d1;"
+        tdNumero.appendChild(spanDelete)
+        tr.appendChild(tdNumero)
+        console.log("Registrando evento Lixo clicado: "+i)
+        spanDelete.addEventListener('click',(function (x){
+          return function() {
+              console.log("Lixo clicado: "+x)
+              custo_total = custo_total - (custo_capita[x].valor)*pessoas.length
+              custo_por_pessoa = custo_total/pessoas.length
+              custo_capita.splice(x, 1)
+              limpaFormularioCapita()
+              apresentaDadosCapita()
+              mostraCusto()
+          }
+        })(i))
+        var tdNome = document.createElement("td")
+        tdNome.textContent = capita.produto
+        tr.appendChild(tdNome)
+        var tdValor = document.createElement("td")
+        tdValor.textContent = capita.valor
+        tr.appendChild(tdValor)
+
+      }
+    }
+
+    function limpaFormularioPessoa(){
+      document.form_pessoas.reset();
+      document.form_pessoas.posicao.value = '';
+      document.form_pessoas.botao_pessoa.value = "Adicionar";
+    }
+
+    function limpaFormularioFixo(){
+      document.prod_custo_fixo.reset();
+      document.prod_custo_fixo.posicao.value = '';
+      document.prod_custo_fixo.botao_fixo.value = "Adicionar";
+    }
+    function limpaFormularioCapita(){
+      document.prod_per_capita.reset();
+      document.prod_per_capita.value = '';
+      document.prod_per_capita.botao_per.value = "Adicionar";
+    }
+    function criaPessoa(){
+      var nome = document.form_pessoas.nome.value;
+      limpaFormularioPessoa();
+      var pessoa = {nome: nome};
+      pessoas.push(pessoa);
+      calculaNovoCusto()
+      apresentaDadosPessoas();
+      mostraCusto()
+    }
+    function criaFixo(){
+      var produto = document.prod_custo_fixo.produto.value;
+      var valor = document.prod_custo_fixo.valor.value;
+      limpaFormularioFixo();
+      var fixo = {produto: produto, valor: valor};
+      custo_fixo.push(fixo);
+      calculaNovoCusto()
+      apresentaDadosFixo();
+      mostraCusto()
+    }
+
+    function criaCapita(){
+      var produto = document.prod_per_capita.produto.value;
+      var valor = document.prod_per_capita.valor.value;
+      limpaFormularioCapita();
+      var capita = {produto: produto, valor: valor};
+      custo_capita.push(capita);
+      calculaNovoCusto()
+      apresentaDadosCapita();
+      mostraCusto()
+    }
+
+    function salvaPessoa(){
+      var posicao = document.form_pessoas.posicao.value;
+      var nome = document.form_pessoas.nome.value;
+      limpaFormularioPessoa();
+      var pessoa = {nome: nome};
+      pessoas[posicao] = pessoa;
+      apresentaDadosPessoas();
+    }
+
+    function salvaFixo(){
+      var posicao = document.prod_custo_fixo.posicao.value;
+      var produto = document.prod_custo_fixo.produto.value;
+      var valor = document.prod_custo_fixo.valor.value
+      limpaFormularioFixo();
+      var fixo = {produto: produto, valor: valor};
+      custo_fixo[posicao] = fixo;
+      apresentaDadosFixo();
+    }
+
+    function salvaCapita(){
+      var posicao = document.prod_per_capita.posicao.value;
+      var produto = document.prod_per_capita.produto.value;
+      var valor = document.prod_per_capita.valor.value;
+      limpaFormularioCapita();
+      var capita = {produto: produto, valor: valor};
+      custo_capita[posicao] = capita;
+      apresentaDadosCapita();
+    }
+
+
+
+    document.form_pessoas.addEventListener("submit", enviaFormularioPessoa);
+    document.prod_custo_fixo.addEventListener("submit", enviaFormularioFixo);
+    document.prod_per_capita.addEventListener("submit", enviaFormularioCapita);
+    function enviaFormularioPessoa(e){
+      e.preventDefault();
+      if(document.form_pessoas.posicao.value === ''){
+        criaPessoa();
+      } else {
+        salvaPessoa();
+      }
+    }
+    function enviaFormularioFixo(e){
+      e.preventDefault();
+      if(document.prod_custo_fixo.posicao.value === ''){
+        criaFixo();
+      } else {
+        salvaFixo();
+      }
+    }
+    function enviaFormularioCapita(e){
+      e.preventDefault();
+      if(document.prod_per_capita.posicao.value === ''){
+        criaCapita();
+      } else {
+        salvaCapita();
+      }
+    }
+
+    function mostraCusto(){
+      var tbody = document.querySelectorAll("tbody")
+      tbody[3].innerHTML = "";
+      var tr = document.createElement("tr")
+      tbody[3].appendChild(tr)
+      var tdCusto = document.createElement("td")
+      tdCusto.textContent = custo_por_pessoa
+      tr.appendChild(tdCusto)
+    }
+
+    function calculaNovoCusto(){
+      custo_total = 0
+      for (var i = 0; i< custo_fixo.length; i++) {
+        custo_total = custo_total + parseFloat(custo_fixo[i].valor)
+      }
+      custo_por_pessoa = custo_total/pessoas.length
+      for (var i = 0; i< custo_capita.length; i++) {
+        custo_por_pessoa = custo_por_pessoa + parseFloat(custo_capita[i].valor)
+      }
+    }
+  </script>
+  </body>
+</html>

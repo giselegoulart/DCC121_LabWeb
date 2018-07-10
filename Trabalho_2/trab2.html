@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="pt" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Trabalho 2</title>
+    <style>
+    table{
+    width: 300px;
+    text-align: center
+    }
+    form div{
+      text-align: right;
+      width: 200px;
+    }
+    td,th{
+      text-align: center;
+      border: 1px solid black;
+    }
+    body{
+      background-color: Gainsboro;
+      padding-top: 0px;
+    }
+    </style>
+  </head>
+  <body>
+    <h1>Trabalho 2 - Travessia</h1>
+    <p>Neste jogo você deve atravessar a galinha, o milho e a raposa para o lado direito do rio, obedecendo as seguintes regras:</p>
+    <ul>
+      <li>Se a galinha ficar sozinha com o milho, ela o come e você perde;</li>
+      <li>Se a raposa ficar sozinha com a galinha, ela come a galinha e você perde;</li>
+      <li>Se a raposa, a galinha e o milho cruzarem o rio, você vence.</li>
+    </ul>
+    <p>Se alguma das regras acima for desobedecida o jogo será reiniciado e o número de travessias realizadas no rio será
+    guardado na tabela de resultados. Caso você consiga atravessar a galinha, o milho e a raposa para o lado direito do rio seguindo
+    as regras, o jogo será reiniciado e sua vitória será mostrada também na tabela de resultados, juntamente com o número de
+    tentativas realizadas. Boa sorte!</p>
+    <br>
+    <center>
+    <h3>Quem você deseja atravessar?</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th><th>Possibilidades</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <br>
+    <form name="form_escolha">
+      <input type="hidden" name="posicao" value=""/>
+      <div><label>Digite uma das possibilidades listadas acima:<input type="text" name="nome" required/></label></div>
+      <div><input type="submit"  value="Submeter" name="botao_escolha"/></div>
+    </form>
+    <br>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th><th>Lado Esquerdo</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <br>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th><th>Lado Direito</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <br>
+    <h3>Resultados Anteriores</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Rodada</th><th>Resultado</th><th># tentativas</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <br> <br>
+    <h3>Estado atual do modelo</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Lado Esquerdo</th><th>Rio</th><th>Lado Direito</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><th><img width="50px" height="50px" src="vazio.jpg" id="esq1"/> </th> <th><img width="50px" height="50px" src="rio.jpg"/></th><th> <img width="50px" height="50px" src="vazio.jpg" id="dir1"/> </th></tr>
+        <tr><th> <img width="50px" height="50px" src="vazio.jpg" id="esq2"/> </th> <th><img width="50px" height="50px" src="rio.jpg"/></th> <th> <img width="50px" height="50px" src="vazio.jpg" id="dir2"/> </th></tr>
+        <tr><th> <img width="50px" height="50px" src="vazio.jpg" id="esq3"/> </th> <th><img width="50px" height="50px" src="rio.jpg"/></th> <th> <img width="50px" height="50px" src="vazio.jpg" id="dir3"/> </th></tr>
+        <tr><th> <img width="50px" height="50px" src="vazio.jpg" id="esq4"/> </th> <th><img width="50px" height="50px" src="rio.jpg"/></th> <th> <img width="50px" height="50px" src="vazio.jpg" id="dir4"/> </th></tr>
+      </tbody>
+    </table>
+  </center>
+  <h3>Aluna: Gisele Goulart Tavares da Silva - 201365089C</h3>
+  <h3> E-mail: gisa_goulart9@hotmail.com</h3>
+
+    <script>
+      var tentativas = 0
+      var rodadas = 0
+      var lado = "esquerda"
+      var esquerda = [
+        {nome:"galinha"}, {nome:"milho"}, {nome:"raposa"}, {nome:"voce"}, {nome:"nada"},
+      ]
+      var direita = [{nome:"vazio"}, {nome:"vazio"}, {nome:"vazio"}, {nome:"vazio"}, {nome:"nada"},
+      ]
+      apresentaDados()
+
+      function reinicia(){
+        esquerda = [
+          {nome:"galinha"}, {nome:"milho"}, {nome:"raposa"}, {nome:"voce"}, {nome:"nada"},
+        ]
+        direita = [{nome:"vazio"}, {nome:"vazio"}, {nome:"vazio"}, {nome:"vazio"}, {nome:"nada"},
+        ]
+        lado = "esquerda"
+      }
+      function apresentaDados(){
+        if(lado!="ganhou"){
+          if(lado=="esquerda"){
+            var tbody = document.querySelectorAll("tbody")
+            tbody[0].innerHTML = ""
+            for (var i = 0; i< esquerda.length; i++) {
+              var esq = esquerda[i]
+              if(esq.nome!="voce" && esq.nome!="vazio"){
+                var tr = document.createElement("tr")
+                tbody[0].appendChild(tr)
+                var tdNumero = document.createElement("td");
+                var spanId = document.createElement("span");
+                spanId.textContent = i+1;
+                tr.appendChild(tdNumero);
+                var tdNome = document.createElement("td")
+                tdNome.textContent = esq.nome
+                tdNumero.appendChild(spanId);
+                tr.appendChild(tdNome)
+              }
+            }
+          }
+          else if (lado=="direita") {
+            var tbody = document.querySelectorAll("tbody")
+            tbody[0].innerHTML = ""
+            for (var i = 0; i< direita.length; i++) {
+              var dir = direita[i]
+              if(dir.nome!="voce" && dir.nome!="vazio"){
+                var tr = document.createElement("tr")
+                tbody[0].appendChild(tr)
+                var tdNumero = document.createElement("td");
+                var spanId = document.createElement("span");
+                spanId.textContent = i+1;
+                tr.appendChild(tdNumero);
+                var tdNome = document.createElement("td")
+                tdNome.textContent = dir.nome
+                tdNumero.appendChild(spanId);
+                tr.appendChild(tdNome)
+              }
+            }
+          }
+        }
+
+        var tbody = document.querySelectorAll("tbody")
+        tbody[1].innerHTML = ""
+        for (var i = 0; i< esquerda.length; i++) {
+          var esq = esquerda[i]
+          var tr = document.createElement("tr")
+          tbody[1].appendChild(tr)
+          var tdNumero = document.createElement("td");
+          var spanId = document.createElement("span");
+          spanId.textContent = i+1;
+          tr.appendChild(tdNumero);
+          var tdNome = document.createElement("td")
+          tdNome.textContent = esq.nome
+          tdNumero.appendChild(spanId);
+          tr.appendChild(tdNome)
+        }
+        var tbody = document.querySelectorAll("tbody")
+        tbody[2].innerHTML = ""
+        for (var i = 0; i< direita.length; i++) {
+          var dir = direita[i]
+          var tr = document.createElement("tr")
+          tbody[2].appendChild(tr)
+          var tdNumero = document.createElement("td");
+          var spanId = document.createElement("span");
+          spanId.textContent = i+1;
+          tr.appendChild(tdNumero);
+          var tdNome = document.createElement("td")
+          tdNome.textContent = dir.nome
+          tdNumero.appendChild(spanId);
+          tr.appendChild(tdNome)
+        }
+
+          document.getElementById("esq1").src=esquerda[0].nome+".jpg"
+          document.getElementById("esq2").src=esquerda[1].nome+".jpg"
+          document.getElementById("esq3").src=esquerda[2].nome+".jpg"
+          document.getElementById("esq4").src=esquerda[3].nome+".jpg"
+          document.getElementById("dir1").src=direita[0].nome+".jpg"
+          document.getElementById("dir2").src=direita[1].nome+".jpg"
+          document.getElementById("dir3").src=direita[2].nome+".jpg"
+          document.getElementById("dir4").src=direita[3].nome+".jpg"
+      }
+
+      function limpaFormulario(){
+        document.form_escolha.reset()
+        document.form_escolha.posicao.value = ''
+        document.form_escolha.botao_escolha.value = "Submeter"
+      }
+
+      function trocaLado(){
+        var nome = document.form_escolha.nome.value;
+        limpaFormulario();
+        var troca = {nome: nome}
+        if(lado=="esquerda"){
+          for(var i=0;i<esquerda.length; i++){
+            if(esquerda[i].nome==nome){
+              console.log("Excluiu"+esquerda[i].nome)
+              if(esquerda[i].nome!="nada"){
+                esquerda[i].nome = "vazio"
+                direita[i]=troca
+              }
+              lado = "direita"
+              direita[3].nome = "voce"
+              esquerda[3].nome = "vazio"
+              break
+            }
+          }
+        }
+        else if(lado=="direita"){
+          for(var i=0;i<direita.length; i++){
+            if(direita[i].nome==nome){
+              if(direita[i].nome!="nada"){
+                direita[i].nome = "vazio"
+                esquerda[i] = troca
+              }
+              lado = "esquerda"
+              esquerda[3].nome = "voce"
+              direita[3].nome = "vazio"
+              break
+            }
+          }
+        }
+        tentativas = tentativas+1
+        apresentaDados()
+        testaFalha()
+        testaVitoria()
+      }
+
+      function testaFalha(){
+        if(lado=="direita"){
+          if(esquerda[0].nome=="galinha" && esquerda[1].nome=="milho"){
+            var tbody = document.querySelectorAll("tbody")
+            var tr = document.createElement("tr")
+            tbody[3].appendChild(tr)
+            var tdNumero = document.createElement("td");
+            var spanId = document.createElement("span");
+            spanId.textContent = rodadas+1;
+            rodadas = rodadas+1
+            tr.appendChild(tdNumero);
+            var tdNome = document.createElement("td")
+            tdNome.textContent = "Movimento Ilegal: galinha + milho"
+            tdNumero.appendChild(spanId);
+            tdTentativas = document.createElement("td")
+            tdTentativas.textContent = tentativas
+            tr.appendChild(tdNome)
+            tr.appendChild(tdTentativas)
+            reinicia()
+            apresentaDados()
+            tentativas = 0
+          }
+          else if(esquerda[0].nome=="galinha" && esquerda[2].nome=="raposa"){
+            var tbody = document.querySelectorAll("tbody")
+            var tr = document.createElement("tr")
+            tbody[3].appendChild(tr)
+            var tdNumero = document.createElement("td");
+            var spanId = document.createElement("span");
+            spanId.textContent = rodadas+1
+            rodadas = rodadas+1
+            tr.appendChild(tdNumero);
+            var tdNome = document.createElement("td")
+            tdNome.textContent = "Movimento Ilegal: galinha + raposa"
+            tdNumero.appendChild(spanId);
+            tdTentativas = document.createElement("td")
+            tdTentativas.textContent = tentativas
+            tr.appendChild(tdNome)
+            tr.appendChild(tdTentativas)
+            reinicia()
+            apresentaDados()
+            tentativas = 0
+          }
+        }
+        else if(lado=="esquerda"){
+          if(direita[0].nome=="galinha" && direita[1].nome=="milho"){
+            var tbody = document.querySelectorAll("tbody")
+            var tr = document.createElement("tr")
+            tbody[3].appendChild(tr)
+            var tdNumero = document.createElement("td");
+            var spanId = document.createElement("span");
+            spanId.textContent = rodadas+1
+            rodadas = rodadas+1
+            tr.appendChild(tdNumero);
+            var tdNome = document.createElement("td")
+            tdNome.textContent = "Movimento Ilegal: galinha + milho"
+            tdNumero.appendChild(spanId);
+            tdTentativas = document.createElement("td")
+            tdTentativas.textContent = tentativas
+            tr.appendChild(tdNome)
+            tr.appendChild(tdTentativas)
+            reinicia()
+            apresentaDados()
+            tentativas = 0
+          }
+          else if(direita[0].nome=="galinha" && direita[2].nome=="raposa"){
+            var tbody = document.querySelectorAll("tbody")
+            var tr = document.createElement("tr")
+            tbody[3].appendChild(tr)
+            var tdNumero = document.createElement("td");
+            var spanId = document.createElement("span");
+            spanId.textContent = rodadas+1
+            rodadas = rodadas+1
+            tr.appendChild(tdNumero);
+            var tdNome = document.createElement("td")
+            tdNome.textContent = "Movimento Ilegal: galinha + raposa"
+            tdNumero.appendChild(spanId);
+            tdTentativas = document.createElement("td")
+            tdTentativas.textContent = tentativas
+            tr.appendChild(tdNome)
+            tr.appendChild(tdTentativas)
+            reinicia()
+            apresentaDados()
+            tentativas = 0
+        }
+      }
+    }
+      function testaVitoria(){
+        if(lado=="direita"){
+          if(direita[0].nome=="galinha" && direita[1].nome=="milho" && direita[2].nome=="raposa"){
+            var tbody = document.querySelectorAll("tbody")
+            var tr = document.createElement("tr")
+            tbody[3].appendChild(tr)
+            var tdNumero = document.createElement("td");
+            var spanId = document.createElement("span");
+            spanId.textContent = rodadas+1
+            rodadas = rodadas+1
+            tr.appendChild(tdNumero);
+            var tdNome = document.createElement("td")
+            tdNome.textContent = "VENCEU!"
+            tdNumero.appendChild(spanId);
+            tdTentativas = document.createElement("td")
+            tdTentativas.textContent = tentativas
+            tr.appendChild(tdNome)
+            tr.appendChild(tdTentativas)
+            reinicia()
+            apresentaDados()
+            tentativas = 0
+          }
+        }
+        else if(lado=="esquerda"){
+          if(direita[0].nome=="galinha" && direita[1].nome=="milho" && direita[2].nome=="raposa"){
+            var tbody = document.querySelectorAll("tbody")
+            var tr = document.createElement("tr")
+            tbody[3].appendChild(tr)
+            var tdNumero = document.createElement("td")
+            var spanId = document.createElement("span")
+            spanId.textContent = rodadas+1
+            rodadas = rodadas+1
+            tr.appendChild(tdNumero)
+            var tdNome = document.createElement("td")
+            tdNome.textContent = "Movimento Ilegal: galinha + milho + raposa"
+            tdNumero.appendChild(spanId)
+            tdTentativas = document.createElement("td")
+            tdTentativas.textContent = tentativas
+            tr.appendChild(tdNome)
+            tr.appendChild(tdTentativas)
+            reinicia()
+            apresentaDados()
+            tentativas = 0
+          }
+        }
+      }
+      document.form_escolha.addEventListener("submit", enviaFormulario);
+      function enviaFormulario(e){
+        e.preventDefault();
+        trocaLado()
+        limpaFormulario()
+      }
+    </script>
+  </body>
+</html>
